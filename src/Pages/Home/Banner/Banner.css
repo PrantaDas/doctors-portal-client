@@ -1,0 +1,24 @@
+.banner-photo {
+    max-width: 594px;
+    max-height: 355px;
+}
+
+.banner-content {
+    width: 655px;
+    height: 266px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.banner-title {
+    width: 541px;
+    height: 130px;
+    text-align: justify;
+    line-height: 65px;
+}
+
+.banner-button {
+    background: linear-gradient(90deg, #19D3AE -22.5%, #0FCFEC 120.83%);
+    border-radius: 8px;
+}
