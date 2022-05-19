@@ -3,11 +3,17 @@ import { useForm } from "react-hook-form";
 import { css } from "@emotion/react";
 import { BeatLoader, PacmanLoader } from 'react-spinners';
 import Footer from '../Pages/Footer/Footer';
-import { useSignInWithGoogle, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSignInWithGoogle, useCreateUserWithEmailAndPassword, useUpdateProfile, useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../firebase.init';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Register = () => {
+
+    const [currentUser] = useAuthState(auth)
+
+    const location = useLocation()
+
+    let from = location.state?.from?.pathname || "/";
 
     const [
         createUserWithEmailAndPassword,
@@ -16,15 +22,19 @@ const Register = () => {
         error1,
     ] = useCreateUserWithEmailAndPassword(auth);
 
+    const [updateProfile, updating, error2] = useUpdateProfile(auth);
+
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
     const override = css`
         margin:0,auto;
     `;
 
-    const onSubmit = data => {
+    const onSubmit = async data => {
         console.log(data);
-        createUserWithEmailAndPassword(data.email, data.password);
+        await createUserWithEmailAndPassword(data.email, data.password);
+        await updateProfile({ displayName: data.name })
+        // navigate(from, { replace: true });
     };
     const navigate = useNavigate();
 
@@ -32,11 +42,12 @@ const Register = () => {
 
     const handleSignWithGoogle = () => {
         signInWithGoogle();
-        navigate('/');
+        // navigate(from, { replace: true });
     };
 
-    if (user || user1) {
-        navigate('/');
+    if (currentUser || user) {
+        console.log(currentUser);
+        navigate(from, { replace: true });
     }
 
     return (
@@ -50,13 +61,13 @@ const Register = () => {
                                 <label class="label">
                                     <span class="label-text font-bold text-sm">Name</span>
                                 </label>
-                                <input type="email" {...register("name", {
+                                <input type="text" {...register("name", {
                                     required: {
                                         value: true,
                                         message: 'Name is Required'
                                     }
                                 })}
-                                    name='email'
+                                    // name='name'
                                     placeholder="Type Your Name"
                                     class="input input-bordered w-full max-w-sm"
                                 />

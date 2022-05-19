@@ -2,18 +2,22 @@ import React, { useState } from 'react';
 import Footer from '../Footer/Footer';
 import { useSignInWithGoogle, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { css } from "@emotion/react";
 import { BeatLoader, PacmanLoader } from 'react-spinners';
-
-
 
 
 const Login = () => {
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
     const [color, setColor] = useState('#19D3AE');
+
+    const location=useLocation();
+
+    const navigate = useNavigate();
+
+    let from = location.state?.from?.pathname || "/";
 
     const [
         signInWithEmailAndPassword,
@@ -26,22 +30,22 @@ const Login = () => {
         margin:0,auto;
     `;
 
-    const navigate = useNavigate();
 
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const handleSignWithGoogle = () => {
         signInWithGoogle();
-        navigate('/');
+        // navigate(from, { replace: true });
     };
 
     const onSubmit = data => {
         console.log(data);
         signInWithEmailAndPassword(data.email, data.password);
+        // navigate(from, { replace: true });
     };
 
-    if (user) {
-        console.log(user);
+    if (user || user1) {
+        navigate(from, { replace: true });
     };
 
     if (loading || loading1) {
