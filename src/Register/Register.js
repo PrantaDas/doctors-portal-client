@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
-import Footer from '../Footer/Footer';
-import { useSignInWithGoogle, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import auth from '../../firebase.init'
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
 import { useForm } from "react-hook-form";
 import { css } from "@emotion/react";
 import { BeatLoader, PacmanLoader } from 'react-spinners';
+import Footer from '../Pages/Footer/Footer';
+import { useSignInWithGoogle, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import auth from '../firebase.init';
+import { Link, useNavigate } from 'react-router-dom';
 
-
-
-
-const Login = () => {
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
-
-    const [color, setColor] = useState('#19D3AE');
+const Register = () => {
 
     const [
-        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
         user1,
         loading1,
         error1,
-    ] = useSignInWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth);
+
+    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
     const override = css`
         margin:0,auto;
     `;
 
+    const onSubmit = data => {
+        console.log(data);
+        createUserWithEmailAndPassword(data.email, data.password);
+    };
     const navigate = useNavigate();
 
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -35,39 +35,37 @@ const Login = () => {
         navigate('/');
     };
 
-    const onSubmit = data => {
-        console.log(data);
-        signInWithEmailAndPassword(data.email, data.password);
-    };
+    if (user || user1) {
+        navigate('/');
+    }
 
-    if (user) {
-        console.log(user);
-    };
-
-    if (loading || loading1) {
-        return (<BeatLoader css={override} color={color} speedMultiplier={2} size={25} />)
-    };
-
-    let signInError;
-    let gError;;
-
-    if (error1) {
-        const errorMessage = error1.message;
-        console.log(errorMessage);
-        if (errorMessage.includes('auth/user-not-found')) {
-            signInError = <small className='py-2 text-red-700'>User Not Found</small>;
-        };
-        if (errorMessage.includes('auth/wrong-password')) {
-            signInError = <small className='py-2 text-red-700'>Invalid Password</small>;
-        };
-    };
     return (
         <div>
-            <div className='flex justify-center h-[70vh] items-center'>
+            <div className='flex justify-center h-[90vh] items-center'>
                 <div class="card w-96 bg-base-100 shadow-xl">
                     <div class="card-body">
-                        <h2 class="text-center text-2xl font-bold">Login</h2>
+                        <h2 class="text-center text-2xl font-bold">Sign Up</h2>
                         <form form onSubmit={handleSubmit(onSubmit)}>
+                            <div class="form-control w-full max-w-xs">
+                                <label class="label">
+                                    <span class="label-text font-bold text-sm">Name</span>
+                                </label>
+                                <input type="email" {...register("name", {
+                                    required: {
+                                        value: true,
+                                        message: 'Name is Required'
+                                    }
+                                })}
+                                    name='email'
+                                    placeholder="Type Your Name"
+                                    class="input input-bordered w-full max-w-sm"
+                                />
+
+                                <label class="label">
+                                    {errors.name?.type === 'required' && <span class="label-text-alt text-red-700">{errors.name.message}</span>}
+                                </label>
+                            </div>
+
                             <div class="form-control w-full max-w-xs">
                                 <label class="label">
                                     <span class="label-text font-bold text-sm">Email</span>
@@ -119,11 +117,8 @@ const Login = () => {
                                 <label class="label">
                                     <span class="label-text text-xs hover:underline hover:text-red-700" role='button'>Forget Password?</span>
                                 </label>
-                                <input className='btn bg-accent tracking-wide text-lg' type="submit" value="LOGIN" />
-                                {
-                                    signInError
-                                }
-                                <p className='py-2'><small className='font-bold px-1'>New to Doctors Portal?</small><small className='text-secondary  hover:underline' role='button'><Link to='/register'>Create new account</Link></small></p>
+                                <input className='btn bg-accent tracking-wide text-lg' type="submit" value="SIGNUP" />
+                                <p className='py-2'><small className='font-bold px-1'>Already Have an Account?</small><small className='text-secondary  hover:underline' role='button'><Link to='/login'>Login Here</Link></small></p>
                             </div>
 
                         </form>
@@ -138,8 +133,7 @@ const Login = () => {
             </div>
             <Footer></Footer>
         </div>
-
     );
 };
 
-export default Login;
+export default Register;
