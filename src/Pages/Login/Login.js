@@ -5,7 +5,7 @@ import auth from '../../firebase.init'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { css } from "@emotion/react";
-import { BeatLoader, PacmanLoader } from 'react-spinners';
+import { BeatLoader } from 'react-spinners';
 
 
 const Login = () => {
@@ -13,7 +13,7 @@ const Login = () => {
 
     const [color, setColor] = useState('#19D3AE');
 
-    const location=useLocation();
+    const location = useLocation();
 
     const navigate = useNavigate();
 
@@ -35,13 +35,11 @@ const Login = () => {
 
     const handleSignWithGoogle = () => {
         signInWithGoogle();
-        // navigate(from, { replace: true });
     };
 
     const onSubmit = data => {
         console.log(data);
         signInWithEmailAndPassword(data.email, data.password);
-        // navigate(from, { replace: true });
     };
 
     if (user || user1) {

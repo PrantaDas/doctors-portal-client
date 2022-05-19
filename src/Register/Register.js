@@ -30,11 +30,12 @@ const Register = () => {
         margin:0,auto;
     `;
 
+    let signError;
+
     const onSubmit = async data => {
         console.log(data);
         await createUserWithEmailAndPassword(data.email, data.password);
         await updateProfile({ displayName: data.name })
-        // navigate(from, { replace: true });
     };
     const navigate = useNavigate();
 
@@ -42,13 +43,20 @@ const Register = () => {
 
     const handleSignWithGoogle = () => {
         signInWithGoogle();
-        // navigate(from, { replace: true });
     };
 
     if (currentUser || user) {
         console.log(currentUser);
         navigate(from, { replace: true });
-    }
+    };
+
+    if (loading) {
+        return (<p className='text-secondary'>Loading</p>);
+    };
+
+    if (error || error1) {
+        signError = <p>{error.message}</p>
+    };
 
     return (
         <div>
@@ -131,7 +139,9 @@ const Register = () => {
                                 <input className='btn bg-accent tracking-wide text-lg' type="submit" value="SIGNUP" />
                                 <p className='py-2'><small className='font-bold px-1'>Already Have an Account?</small><small className='text-secondary  hover:underline' role='button'><Link to='/login'>Login Here</Link></small></p>
                             </div>
-
+                            {
+                                signError
+                            }
                         </form>
                         <div class="divider">OR</div>
                         <div>
