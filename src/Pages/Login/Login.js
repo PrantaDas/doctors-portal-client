@@ -66,13 +66,13 @@ const Login = () => {
     return (
         <div>
             <div className='flex justify-center h-[70vh] items-center'>
-                <div class="card w-96 bg-base-100 shadow-xl">
-                    <div class="card-body">
-                        <h2 class="text-center text-2xl font-bold">Login</h2>
+                <div className="card w-96 bg-base-100 shadow-xl">
+                    <div className="card-body">
+                        <h2 className="text-center text-2xl font-bold">Login</h2>
                         <form form onSubmit={handleSubmit(onSubmit)}>
-                            <div class="form-control w-full max-w-xs">
-                                <label class="label">
-                                    <span class="label-text font-bold text-sm">Email</span>
+                            <div className="form-control w-full max-w-xs">
+                                <label className="label">
+                                    <span className="label-text font-bold text-sm">Email</span>
                                 </label>
                                 <input type="email" {...register("email", {
                                     required: {
@@ -87,17 +87,17 @@ const Login = () => {
                                 })}
                                     name='email'
                                     placeholder="Type Your Email"
-                                    class="input input-bordered w-full max-w-sm"
+                                    className="input input-bordered w-full max-w-sm"
                                 />
 
-                                <label class="label">
-                                    {errors.email?.type === 'required' && <span class="label-text-alt text-red-700">{errors.email.message}</span>}
-                                    {errors.email?.type === 'pattern' && <span class="label-text-alt text-red-700">{errors.email.message}</span>}
+                                <label className="label">
+                                    {errors.email?.type === 'required' && <span className="label-text-alt text-red-700">{errors.email.message}</span>}
+                                    {errors.email?.type === 'pattern' && <span className="label-text-alt text-red-700">{errors.email.message}</span>}
                                 </label>
                             </div>
-                            <div class="form-control w-full max-w-xs">
-                                <label class="label">
-                                    <span class="label-text font-bold text-sm">Password</span>
+                            <div className="form-control w-full max-w-xs">
+                                <label className="label">
+                                    <span className="label-text font-bold text-sm">Password</span>
                                 </label>
                                 <input {...register("password", {
                                     required: {
@@ -112,14 +112,14 @@ const Login = () => {
                                 })}
                                     type="password"
                                     placeholder="Type Your Password"
-                                    class="input input-bordered w-full max-w-sm"
+                                    className="input input-bordered w-full max-w-sm"
                                 />
-                                <label class="label">
-                                    {errors.password?.type === 'required' && <span class="label-text-alt text-red-700">{errors.password.message}</span>}
-                                    {errors.password?.type === 'minLength' && <span class="label-text-alt text-red-700">{errors.password.message}</span>}
+                                <label className="label">
+                                    {errors.password?.type === 'required' && <span className="label-text-alt text-red-700">{errors.password.message}</span>}
+                                    {errors.password?.type === 'minLength' && <span className="label-text-alt text-red-700">{errors.password.message}</span>}
                                 </label>
-                                <label class="label">
-                                    <span class="label-text text-xs hover:underline hover:text-red-700" role='button'>Forget Password?</span>
+                                <label className="label">
+                                    <span className="label-text text-xs hover:underline hover:text-red-700" role='button'>Forget Password?</span>
                                 </label>
                                 <input className='btn bg-accent tracking-wide text-lg' type="submit" value="LOGIN" />
                                 {
@@ -129,9 +129,9 @@ const Login = () => {
                             </div>
 
                         </form>
-                        <div class="divider">OR</div>
+                        <div className="divider">OR</div>
                         <div>
-                            <button onClick={handleSignWithGoogle} class="btn btn-active btn-ghost btn-block tracking-wide text-lg">CONTINUE WITH GOOGLE</button>
+                            <button onClick={handleSignWithGoogle} className="btn btn-active btn-ghost btn-block tracking-wide text-lg">CONTINUE WITH GOOGLE</button>
 
                         </div>
                     </div>
