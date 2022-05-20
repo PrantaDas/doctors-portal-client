@@ -49,7 +49,7 @@ const Register = () => {
         signInWithGoogle();
     };
 
-    if (user || user1) {
+    if (token) {
         navigate(from, { replace: true });
     };
 

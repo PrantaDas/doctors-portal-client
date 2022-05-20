@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { css } from "@emotion/react";
 import { BeatLoader } from 'react-spinners';
+import useToken from '../../Hooks/useToken';
 
 
 const Login = () => {
@@ -26,6 +27,8 @@ const Login = () => {
         error1,
     ] = useSignInWithEmailAndPassword(auth);
 
+    const [token] = useToken(user || user1);
+
     const override = css`
         margin:0,auto;
     `;
@@ -42,7 +45,7 @@ const Login = () => {
         signInWithEmailAndPassword(data.email, data.password);
     };
 
-    if (user || user1) {
+    if (token) {
         navigate(from, { replace: true });
     };
 

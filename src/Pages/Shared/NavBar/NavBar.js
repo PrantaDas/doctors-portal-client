@@ -10,6 +10,7 @@ const NavBar = () => {
 
     const handleSignout = () => {
         signOut(auth);
+        localStorage.removeItem('accessToken');
     }
 
     const menuItems = <>
