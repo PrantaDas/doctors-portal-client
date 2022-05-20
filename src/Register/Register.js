@@ -6,10 +6,11 @@ import Footer from '../Pages/Footer/Footer';
 import { useSignInWithGoogle, useCreateUserWithEmailAndPassword, useUpdateProfile, useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../firebase.init';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import useToken from '../Hooks/useToken';
 
 const Register = () => {
 
-    const [currentUser] = useAuthState(auth)
+    const [currentUser] = useAuthState(auth);
 
     const location = useLocation()
 
@@ -26,6 +27,8 @@ const Register = () => {
 
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
+    const [token] = useToken(user1 || user);
+
     const override = css`
         margin:0,auto;
     `;
@@ -35,7 +38,8 @@ const Register = () => {
     const onSubmit = async data => {
         console.log(data);
         await createUserWithEmailAndPassword(data.email, data.password);
-        await updateProfile({ displayName: data.name })
+        await updateProfile({ displayName: data.name });
+
     };
     const navigate = useNavigate();
 
@@ -45,8 +49,7 @@ const Register = () => {
         signInWithGoogle();
     };
 
-    if (currentUser || user) {
-        console.log(currentUser);
+    if (user || user1) {
         navigate(from, { replace: true });
     };
 

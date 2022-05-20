@@ -16,10 +16,37 @@ const MyAppointment = () => {
                 console.log(data);
                 setMyAppointment(data);
             })
-    }, [user])
+    }, [user]);
+    let serial=1;
     return (
-        <div>
-            <p>my appointment;{myAppointment.length}</p>
+        <div class="overflow-x-auto">
+            <table class="table w-full">
+
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Treatment</th>
+                        <th>Time</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {
+                        myAppointment.map(m =>
+                            <tr key={m._id}>
+                                <th>{serial++}</th>
+                                <td>{m.patientName}</td>
+                                <td>{m.treatment}</td>
+                                <td>{m.slot}</td>
+                                <td>{m.date}</td>
+                            </tr>
+                        )
+                    }
+
+                </tbody>
+            </table>
         </div>
     );
 };
