@@ -51,6 +51,11 @@ const AddDoctor = () => {
                                 theme:'colored'
                             })
                         }
+                        else{
+                            toast.error('An error occured! try again',{
+                                theme:'colored'
+                            })
+                        }
                     })
                 }
                 reset();
