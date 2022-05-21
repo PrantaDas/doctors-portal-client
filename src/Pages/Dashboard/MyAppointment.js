@@ -13,7 +13,7 @@ const MyAppointment = () => {
 
     useEffect(() => {
         const email = user.email;
-        const url = `http://localhost:5000/booking?email=${email}`;
+        const url = `https://protected-garden-03211.herokuapp.com/booking?email=${email}`;
         fetch(url, {
             method: 'GET',
             headers: {

@@ -12,7 +12,7 @@ const useToken = (user) => {
         const currentUser = { email };
 
         if (email) {
-            fetch(`http://localhost:5000/user/${email}`, {
+            fetch(`https://protected-garden-03211.herokuapp.com/user/${email}`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json'
