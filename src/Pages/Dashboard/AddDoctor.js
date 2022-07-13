@@ -8,7 +8,7 @@ import Footer from '../Footer/Footer';
 const AddDoctor = () => {
     const { register, reset, formState: { errors }, handleSubmit } = useForm();
     const { data: specialties, isLoading, refetch } = useQuery('specialties', () =>
-        fetch('http://localhost:5000/services').then(res => res.json())
+        fetch('https://protected-garden-03211.herokuapp.com/services').then(res => res.json())
     );
 
     const imageStorageKey = '13d66fdfa125a0e2cda7711f3b4b3c15';
@@ -35,7 +35,7 @@ const AddDoctor = () => {
                     };
                     // sending data to database
 
-                    fetch('http://localhost:5000/doctors', {
+                    fetch('https://protected-garden-03211.herokuapp.com/doctors', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

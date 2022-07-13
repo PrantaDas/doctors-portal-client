@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 
 const ManageDoctor = () => {
-    const { data: doctors, isLoading, refetch } = useQuery('doctors', () => fetch('http://localhost:5000/doctors', {
+    const { data: doctors, isLoading, refetch } = useQuery('doctors', () => fetch('https://protected-garden-03211.herokuapp.com/doctors', {
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
@@ -15,7 +15,7 @@ const ManageDoctor = () => {
     const handleRemoveDoctor = (email) => {
         const confirmation = window.confirm('Are you sure to delete?');
         if (confirmation) {
-            const url = `http://localhost:5000/doctors/${email}`;
+            const url = `https://protected-garden-03211.herokuapp.com/doctors/${email}`;
             fetch(url, {
                 method: 'DELETE',
                 headers: {

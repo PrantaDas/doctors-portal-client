@@ -14,7 +14,7 @@ const stripePromise = loadStripe('pk_test_51L2AgjJzJLDexX03BnxYalUKId5amjaqpE7d1
 
 const Payment = () => {
     const { id } = useParams();
-    const url = `http://localhost:5000/booking/${id}`;
+    const url = `https://protected-garden-03211.herokuapp.com/booking/${id}`;
     const { data: appointment, isLoading, refetch } = useQuery(['booking', id], () => fetch(url, {
         method: 'GET',
         headers: {

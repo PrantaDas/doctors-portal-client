@@ -60,7 +60,7 @@ const MyAppointment = () => {
                                 <td>{m.slot}</td>
                                 <td>{m.date}</td>
                                 <td>{(m.price && !m.paid) && <Link to={`/dashboard/payment/${m._id}`}><button class="btn btn-xs">PAY</button></Link>}
-                                {(m.price && m.paid) &&<button class="btn btn-xs">PAID</button>}
+                                {(m.price && m.paid) &&<button class="btn btn-xs" disabled>PAID</button>}
                                 </td>
                             </tr>
                         )
